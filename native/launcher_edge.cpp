@@ -127,6 +127,7 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int) {
                            L" --user-data-dir=\"" + userDataDir + L"\""
                            L" --window-size=1280,860"
                            L" --no-first-run"
+                           L" --allow-file-access-from-files"
                            L" --disable-features=msEdgeSidebar,msHubApps";
 
     STARTUPINFOW si{ sizeof(si) };

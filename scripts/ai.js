@@ -70,14 +70,13 @@
 
         if (!res.ok) {
           const errText = await res.text().catch(() => '');
-          const modelMissing =
-            res.status === 404 ||
-            (res.status === 400 && /model/i.test(errText));
-          if (modelMissing) {
-            lastError = new Error(`CLAUDE_HTTP_404_${model}`);
+          // Retry on 404 (model gone) or 400 (bad request — may be model-specific).
+          // This lets us walk down CLAUDE_MODELS until one works.
+          if (res.status === 404 || res.status === 400) {
+            lastError = new Error(`CLAUDE_HTTP_${res.status}_${model}: ${errText.slice(0, 500)}`);
             continue;
           }
-          throw new Error(`CLAUDE_HTTP_${res.status}: ${errText.slice(0, 220)}`);
+          throw new Error(`CLAUDE_HTTP_${res.status}: ${errText.slice(0, 500)}`);
         }
 
         const data = await res.json();
