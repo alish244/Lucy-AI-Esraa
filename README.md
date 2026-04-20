@@ -86,7 +86,7 @@ python -m http.server 5173
 
 Or deploy it to GitHub Pages (see below) and open the Pages URL.
 
-### Option 2 — Build the native Lucy.exe launcher
+### Option 2 — Build the native Lucy.exe launcher (WebView2 / Visual Studio)
 
 Requires:
 
@@ -112,6 +112,26 @@ Double-click `build\Release\Lucy.exe` to launch.
 > **First-time runtime**: Lucy uses Microsoft Edge WebView2 Runtime. It ships
 > on every up-to-date Windows 10/11. If it is missing, Lucy will prompt you
 > with a download link.
+
+### Option 3 — Build the lightweight Lucy.exe launcher (MinGW, no VS required)
+
+If you don't have Visual Studio installed, use the MinGW-friendly variant. It
+builds `Lucy.exe` from [native/launcher_edge.cpp](native/launcher_edge.cpp)
+in a single `g++` call — no CMake, no SDK download.
+
+Requires:
+
+- Windows 10 or 11
+- Microsoft Edge (preinstalled on Windows 10/11)
+- MinGW-w64 `g++` on PATH (via scoop, msys2, w64devkit, or chocolatey)
+
+```bat
+build_mingw.bat
+```
+
+The produced `Lucy.exe` spawns Microsoft Edge in `--app` mode pointed at the
+bundled `app/index.html`, giving the same chromeless window experience as the
+WebView2 host. Double-click `build\Release\Lucy.exe` to launch.
 
 ---
 
