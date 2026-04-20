@@ -1,0 +1,65 @@
+# Build output
+build/
+out/
+x64/
+Debug/
+Release/
+
+# Fetched SDKs
+third_party/
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.sln.docstates
+*.opensdf
+*.suo
+*.sdf
+CMakeUserPresets.json
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+Makefile
+*.tlog
+
+# Compiled output
+*.exe
+*.dll
+*.obj
+*.ilk
+*.pdb
+*.exp
+*.lib
+*.idb
+*.res
+*.rc.obj
+*.manifest.obj
+
+# Node/editor trash
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Secrets — never commit API keys
+.env
+*.key
+secrets/
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Windows shortcuts produced by unrelated tools
+*.lnk
+
+# Original working copies (kept locally, not in repo)
+A3.pdf
+*.jpg
+!assets/images/*.jpg
+
+# Local stash for workflow file (requires PAT with 'workflow' scope to push)
+_pages_workflow_stash/

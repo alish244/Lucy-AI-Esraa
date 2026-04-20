@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lucy - AI Assistant for Al-Esraa University, Computer Techniques Engineering, Section A3" />
+  <title>Lucy | لوسي - مساعد جامعة الإسراء</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/splash.css" />
+  <link rel="stylesheet" href="styles/neural.css" />
+</head>
+<body>
+
+  <!-- Splash / Intro Screen -->
+  <section id="splash" class="splash active" aria-label="Project Splash">
+    <div class="splash-stars"></div>
+    <div class="splash-glow"></div>
+
+    <div class="splash-content">
+      <div class="splash-logo">
+        <svg viewBox="0 0 100 100" class="logo-svg">
+          <circle class="logo-ring" cx="50" cy="50" r="46"></circle>
+          <circle class="logo-ring-2" cx="50" cy="50" r="38"></circle>
+          <circle class="logo-core" cx="50" cy="50" r="10"></circle>
+        </svg>
+        <h1 class="splash-title">LUCY</h1>
+        <p class="splash-subtitle">INTELLIGENT NEURAL ASSISTANT</p>
+      </div>
+
+      <div class="splash-university">
+        <h2 class="uni-name-ar">جامعة الإسراء</h2>
+        <p class="uni-name-en">Al-Esraa University</p>
+        <p class="uni-dept">Technical Engineering College · Computer Techniques Engineering</p>
+        <p class="uni-section">First Stage — Section <span class="highlight">A3</span></p>
+      </div>
+
+      <div class="splash-supervisor">
+        <p class="sup-label">SUPERVISOR</p>
+        <p class="sup-name">الأستاذ علي حسين</p>
+        <p class="sup-name-en">Prof. Ali Hussein</p>
+      </div>
+
+      <div class="splash-team">
+        <p class="team-label">PROJECT DEVELOPERS</p>
+        <div class="team-grid" id="teamGrid"><!-- populated by JS --></div>
+      </div>
+
+      <div class="splash-progress">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <p class="progress-text" id="progressText">INITIALIZING NEURAL CORE…</p>
+      </div>
+
+      <button id="enterBtn" class="enter-btn hidden">
+        <span>ENTER LUCY</span>
+        <svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Main Neural Interface -->
+  <section id="app" class="app hidden" aria-label="Lucy Interface">
+    <header class="app-header">
+      <div class="brand">
+        <svg viewBox="0 0 100 100" class="brand-logo"><circle cx="50" cy="50" r="46" class="lr"/><circle cx="50" cy="50" r="10" class="lc"/></svg>
+        <div>
+          <h1>LUCY</h1>
+          <p>Al-Esraa AI Assistant</p>
+        </div>
+      </div>
+      <div class="app-actions">
+        <button id="settingsBtn" class="icon-btn" title="Settings">
+          <svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        </button>
+        <button id="aboutBtn" class="icon-btn" title="About">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- Neural Circle Visualization -->
+      <div class="neural-container">
+        <canvas id="neuralCanvas" class="neural-canvas"></canvas>
+        <div class="neural-center">
+          <div class="state-ring"></div>
+          <p id="stateLabel" class="state-label">IDLE</p>
+        </div>
+      </div>
+
+      <!-- Conversation Panel -->
+      <div class="conversation" id="conversation" aria-live="polite">
+        <div class="msg msg-lucy intro-msg">
+          <span class="msg-tag">Lucy</span>
+          <p>مرحباً بك، أنا <b>لوسي</b> مساعدتك الذكية لجامعة الإسراء. اسألني عن الجامعة، الكلية التقنية الهندسية، قسم هندسة تقنيات الحاسوب، أو طلاب الشعبة <b>A3</b>.</p>
+        </div>
+      </div>
+
+      <!-- Input bar -->
+      <div class="input-bar">
+        <button id="micBtn" class="mic-btn" title="Hold / Click to speak">
+          <svg viewBox="0 0 24 24" class="mic-icon"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg>
+          <span class="mic-pulse"></span>
+        </button>
+        <input type="text" id="textInput" class="text-input" placeholder="اكتب سؤالك هنا أو اضغط على زر المايك..." />
+        <button id="sendBtn" class="send-btn" title="Send">
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+      </div>
+
+      <div class="suggestions" id="suggestions">
+        <button class="sug" data-q="من هو الأستاذ المشرف؟">من هو الأستاذ المشرف؟</button>
+        <button class="sug" data-q="من هم طلاب الشعبة A3؟">طلاب الشعبة A3</button>
+        <button class="sug" data-q="من أنشأ هذا المشروع؟">فريق المشروع</button>
+        <button class="sug" data-q="ما هي جامعة الإسراء؟">عن الجامعة</button>
+        <button class="sug" data-q="ما هو قسم هندسة تقنيات الحاسوب؟">عن القسم</button>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <span>Lucy v1.0 · Al-Esraa University · Section A3</span>
+      <span id="aiBadge" class="ai-badge">Local Knowledge</span>
+    </footer>
+  </section>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-card">
+      <button class="modal-close" data-close>×</button>
+      <h2>Settings</h2>
+
+      <div class="field">
+        <label for="geminiKey">Google Gemini API Key <small>(اختياري - للذكاء المتقدم)</small></label>
+        <input type="password" id="geminiKey" placeholder="AIza..." autocomplete="off" />
+        <p class="hint">احصل على مفتاح مجاني من <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a></p>
+      </div>
+
+      <div class="field">
+        <label for="voiceSelect">الصوت الأنثوي (Arabic Female Voice)</label>
+        <select id="voiceSelect"></select>
+      </div>
+
+      <div class="field">
+        <label>
+          <input type="checkbox" id="autoSpeak" checked />
+          <span>نطق الإجابات تلقائياً (TTS)</span>
+        </label>
+      </div>
+
+      <div class="field">
+        <label>
+          <input type="checkbox" id="continuousListen" />
+          <span>استمرار الاستماع (Continuous Listening)</span>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="saveSettings" class="primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Modal -->
+  <div id="aboutModal" class="modal hidden">
+    <div class="modal-card">
+      <button class="modal-close" data-close>×</button>
+      <h2>About Lucy</h2>
+      <p>
+        <b>Lucy</b> is an intelligent neural assistant built for
+        <b>Al-Esraa University</b>, Technical Engineering College,
+        Computer Techniques Engineering Department — First Stage, Section <b>A3</b>.
+      </p>
+      <p>
+        <b>Supervisor:</b> Prof. Ali Hussein (الأستاذ علي حسين)
+      </p>
+      <p><b>Developers:</b> Zahraa Haider · Ali Shihab · Rafid Jawad</p>
+      <p>
+        <a href="https://www.esraa.edu.iq/" target="_blank" rel="noopener">www.esraa.edu.iq</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="scripts/knowledge.js"></script>
+  <script src="scripts/neural.js"></script>
+  <script src="scripts/voice.js"></script>
+  <script src="scripts/ai.js"></script>
+  <script src="scripts/splash.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

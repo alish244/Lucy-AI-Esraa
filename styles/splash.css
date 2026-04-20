@@ -1,0 +1,317 @@
+/* ==========================================================================
+   Splash / Intro screen
+   ========================================================================== */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, rgba(124, 77, 255, 0.18), transparent 60%),
+    #000;
+}
+
+.splash.fade-out {
+  animation: splashFadeOut 0.8s ease forwards;
+}
+@keyframes splashFadeOut {
+  to { opacity: 0; transform: scale(1.05); filter: blur(8px); pointer-events: none; }
+}
+
+/* Starfield */
+.splash-stars {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 25%, #fff, transparent),
+    radial-gradient(1px 1px at 40% 70%, #9ef, transparent),
+    radial-gradient(1px 1px at 70% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 85% 80%, #c9f, transparent),
+    radial-gradient(2px 2px at 25% 55%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 55% 15%, #9ef, transparent),
+    radial-gradient(1px 1px at 92% 45%, #fff, transparent);
+  background-size: 100% 100%;
+  animation: starDrift 60s linear infinite;
+  opacity: 0.7;
+}
+@keyframes starDrift {
+  from { background-position: 0 0; }
+  to   { background-position: -200px 150px; }
+}
+
+.splash-glow {
+  position: absolute;
+  width: 70vmin; height: 70vmin;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.25), transparent 55%);
+  animation: splashGlow 6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes splashGlow {
+  from { transform: scale(0.95); opacity: 0.6; }
+  to   { transform: scale(1.1);  opacity: 1; }
+}
+
+.splash-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 28px;
+  max-width: 1100px;
+  width: 100%;
+  display: grid;
+  gap: 22px;
+  animation: splashSlideUp 1s ease both;
+}
+@keyframes splashSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === Logo === */
+.splash-logo { display: grid; place-items: center; gap: 10px; }
+.logo-svg { width: 140px; height: 140px; filter: drop-shadow(0 0 24px rgba(0, 229, 255, 0.6)); }
+.logo-ring, .logo-ring-2 {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-dasharray: 6 4;
+  animation: spin 14s linear infinite;
+  transform-origin: 50% 50%;
+}
+.logo-ring-2 { stroke: var(--accent-2); stroke-width: 0.7; animation-duration: 9s; animation-direction: reverse; }
+.logo-core {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 10px var(--accent));
+  animation: corePulse 2s ease-in-out infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes corePulse {
+  0%, 100% { r: 10; opacity: 1; }
+  50%      { r: 14; opacity: 0.7; }
+}
+
+.splash-title {
+  font-family: var(--font-en);
+  font-weight: 900;
+  font-size: clamp(42px, 7vw, 72px);
+  letter-spacing: 16px;
+  padding-inline-start: 16px;
+  background: linear-gradient(90deg, var(--accent), #fff 50%, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+@keyframes titleGlow {
+  from { text-shadow: 0 0 6px rgba(0, 229, 255, 0.4); }
+  to   { text-shadow: 0 0 20px rgba(0, 229, 255, 0.8); }
+}
+
+.splash-subtitle {
+  font-family: var(--font-en);
+  font-size: 13px;
+  letter-spacing: 6px;
+  color: var(--text-dim);
+}
+
+/* === University === */
+.splash-university {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(0, 229, 255, 0.04);
+  border: 1px solid rgba(0, 229, 255, 0.14);
+  backdrop-filter: blur(6px);
+}
+.uni-name-ar {
+  font-family: var(--font-ar);
+  font-weight: 900;
+  font-size: 28px;
+  background: linear-gradient(90deg, var(--accent), #fff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.uni-name-en { font-family: var(--font-en); letter-spacing: 3px; color: var(--text); font-size: 15px; }
+.uni-dept { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+.uni-section { font-size: 12px; color: var(--text-dim); letter-spacing: 2px; }
+.uni-section .highlight {
+  color: var(--accent);
+  font-weight: 900;
+  font-family: var(--font-en);
+  font-size: 16px;
+}
+
+/* === Supervisor === */
+.splash-supervisor {
+  display: grid; gap: 2px;
+}
+.sup-label {
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--accent);
+  opacity: 0.85;
+}
+.sup-name { font-family: var(--font-ar); font-size: 22px; font-weight: 700; }
+.sup-name-en { font-family: var(--font-en); font-size: 13px; color: var(--text-dim); letter-spacing: 2px; }
+
+/* === Team === */
+.team-label {
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--accent-3);
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.team-card {
+  position: relative;
+  padding: 16px 12px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(11, 18, 48, 0.72), rgba(3, 6, 15, 0.72));
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  animation: cardIn 0.7s ease both;
+  overflow: hidden;
+}
+.team-card:nth-child(1) { animation-delay: 0.2s; }
+.team-card:nth-child(2) { animation-delay: 0.4s; }
+.team-card:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 40px rgba(0, 229, 255, 0.25);
+}
+
+.team-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(130deg, transparent 30%, rgba(0, 229, 255, 0.3), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.team-card:hover::before { opacity: 1; }
+
+.team-photo {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  border: 3px solid rgba(0, 229, 255, 0.4);
+  background: #000 center/cover no-repeat;
+  position: relative;
+  box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.08), 0 0 30px rgba(0, 229, 255, 0.2);
+  animation: photoRing 3s ease-in-out infinite;
+}
+@keyframes photoRing {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.08), 0 0 30px rgba(0, 229, 255, 0.2); }
+  50%      { box-shadow: 0 0 0 6px rgba(124, 77, 255, 0.12), 0 0 40px rgba(124, 77, 255, 0.3); }
+}
+
+.team-name-ar {
+  font-family: var(--font-ar);
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 4px;
+  color: var(--text);
+}
+.team-name-en {
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.team-role {
+  font-size: 11px;
+  color: var(--accent);
+  margin-top: 6px;
+  letter-spacing: 1px;
+  font-family: var(--font-en);
+}
+
+/* === Progress === */
+.splash-progress {
+  margin-top: 16px;
+  display: grid; gap: 10px;
+  max-width: 360px;
+  margin-inline: auto;
+  width: 100%;
+}
+.progress-bar {
+  height: 4px;
+  background: rgba(0, 229, 255, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 10px var(--accent);
+  transition: width 0.2s ease;
+  border-radius: 2px;
+}
+.progress-text {
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+}
+
+/* === Enter button === */
+.enter-btn {
+  margin: 10px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 32px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(124, 77, 255, 0.15));
+  border: 1px solid var(--accent);
+  color: var(--text);
+  font-family: var(--font-en);
+  font-weight: 700;
+  letter-spacing: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+  animation: enterPulse 2s ease-in-out infinite;
+}
+@keyframes enterPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.3); }
+  50%      { box-shadow: 0 0 40px rgba(0, 229, 255, 0.55); }
+}
+.enter-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.3), rgba(124, 77, 255, 0.3));
+  transform: translateY(-2px);
+}
+.enter-btn svg { width: 20px; height: 20px; fill: none; stroke: var(--accent); stroke-width: 2; }
+
+@media (max-width: 640px) {
+  .splash-content { padding: 14px; gap: 14px; }
+  .splash-title { letter-spacing: 8px; }
+  .team-photo { width: 100px; height: 100px; }
+  .uni-name-ar { font-size: 22px; }
+  .sup-name { font-size: 18px; }
+}

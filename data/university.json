@@ -1,0 +1,71 @@
+{
+  "university": {
+    "name_ar": "جامعة الإسراء",
+    "name_en": "Al-Esraa University",
+    "website": "https://www.esraa.edu.iq/",
+    "type_ar": "جامعة أهلية عراقية",
+    "type_en": "Iraqi private university",
+    "location_ar": "بغداد - العراق",
+    "location_en": "Baghdad, Iraq",
+    "founded": "1992",
+    "vision_ar": "الريادة في التعليم الجامعي الأهلي وتخريج كوادر علمية قادرة على خدمة المجتمع.",
+    "mission_ar": "تقديم تعليم عالي الجودة يواكب التطور العلمي والتكنولوجي ويُسهم في بناء مجتمع المعرفة."
+  },
+  "college": {
+    "name_ar": "الكلية التقنية الهندسية",
+    "name_en": "Technical Engineering College",
+    "description_ar": "كلية متخصصة بالهندسات التطبيقية والتقنية ضمن جامعة الإسراء."
+  },
+  "department": {
+    "name_ar": "قسم هندسة تقنيات الحاسوب",
+    "name_en": "Computer Techniques Engineering",
+    "description_ar": "قسم يُعنى بتأهيل الطلبة في أنظمة الحاسوب، الشبكات، الذكاء الاصطناعي، هندسة البرمجيات، والأنظمة المدمجة.",
+    "topics_ar": [
+      "البرمجة بلغات C, C++, Python",
+      "هياكل البيانات والخوارزميات",
+      "أنظمة التشغيل",
+      "شبكات الحاسوب",
+      "قواعد البيانات",
+      "الذكاء الاصطناعي والتعلم الآلي",
+      "هندسة البرمجيات",
+      "المعالجات الدقيقة والأنظمة المدمجة",
+      "أمن المعلومات"
+    ]
+  },
+  "project": {
+    "name": "Lucy",
+    "name_ar": "لوسي",
+    "tagline_ar": "مساعد ذكي بواجهة عصبية تفاعلية لجامعة الإسراء",
+    "tagline_en": "Intelligent assistant with an interactive neural interface for Al-Esraa University",
+    "stage_ar": "المرحلة الأولى - الشعبة A3",
+    "stage_en": "First Stage - Section A3",
+    "supervisor": {
+      "name_ar": "الأستاذ علي حسين",
+      "name_en": "Prof. Ali Hussein",
+      "title_ar": "الأستاذ المشرف"
+    },
+    "team": [
+      {
+        "name_ar": "زهراء حيدر عبدالمطلب",
+        "name_en": "Zahraa Haider Abdulmutallib",
+        "role_ar": "مطورة المشروع",
+        "role_en": "Project Developer",
+        "image": "zahraa.jpg"
+      },
+      {
+        "name_ar": "علي شهاب احمد",
+        "name_en": "Ali Shihab Ahmed",
+        "role_ar": "مطور المشروع",
+        "role_en": "Project Developer",
+        "image": "ali_shihab.jpg"
+      },
+      {
+        "name_ar": "رافد جواد كاظم",
+        "name_en": "Rafid Jawad Kadhim",
+        "role_ar": "مطور المشروع",
+        "role_en": "Project Developer",
+        "image": "rafid.jpg"
+      }
+    ]
+  }
+}
