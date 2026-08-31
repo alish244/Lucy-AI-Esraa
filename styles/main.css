@@ -271,6 +271,7 @@ button {
   font-size: 10px;
 }
 .ai-badge.gemini { color: #ffd24d; background: rgba(255, 210, 77, 0.1); border-color: rgba(255, 210, 77, 0.3); }
+.ai-badge.claude { color: #d79a66; background: rgba(215, 154, 102, 0.12); border-color: rgba(215, 154, 102, 0.4); }
 
 /* ================= Modal ================= */
 .modal {

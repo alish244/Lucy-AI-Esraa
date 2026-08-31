@@ -134,7 +134,23 @@
       <h2>Settings</h2>
 
       <div class="field">
-        <label for="geminiKey">Google Gemini API Key <small>(اختياري - للذكاء المتقدم)</small></label>
+        <label for="engineSelect">محرّك الذكاء الاصطناعي (AI Engine)</label>
+        <select id="engineSelect">
+          <option value="auto">تلقائي (Local → Claude → Gemini)</option>
+          <option value="claude">Claude فقط (Anthropic)</option>
+          <option value="gemini">Gemini فقط (Google)</option>
+          <option value="local">محلي فقط (بدون إنترنت)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="claudeKey">Anthropic Claude API Key <small>(مُستحسَن - الأذكى)</small></label>
+        <input type="password" id="claudeKey" placeholder="sk-ant-api03-..." autocomplete="off" />
+        <p class="hint">أنشئي مفتاحاً من <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com/settings/keys</a> — يحتاج رصيد مدفوع (Claude Max لا يغطّيه).</p>
+      </div>
+
+      <div class="field">
+        <label for="geminiKey">Google Gemini API Key <small>(اختياري - مجاني)</small></label>
         <input type="password" id="geminiKey" placeholder="AIza..." autocomplete="off" />
         <p class="hint">احصل على مفتاح مجاني من <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a></p>
       </div>

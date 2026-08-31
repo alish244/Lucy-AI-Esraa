@@ -43,15 +43,17 @@
   function setAIBadge(source) {
     const badge = $('#aiBadge');
     if (!badge) return;
-    if (source === 'gemini') {
+    badge.classList.remove('gemini', 'claude');
+    if (source === 'claude') {
+      badge.textContent = 'Claude AI';
+      badge.classList.add('claude');
+    } else if (source === 'gemini') {
       badge.textContent = 'Gemini AI';
       badge.classList.add('gemini');
     } else if (source === 'local') {
       badge.textContent = 'Local Knowledge';
-      badge.classList.remove('gemini');
     } else {
       badge.textContent = 'Fallback';
-      badge.classList.remove('gemini');
     }
   }
 
@@ -116,6 +118,8 @@
   function wireSettings() {
     dom.settingsBtn.addEventListener('click', () => {
       dom.geminiKey.value = window.LucyAI.getKey() || '';
+      if (dom.claudeKey)     dom.claudeKey.value = window.LucyAI.getClaudeKey() || '';
+      if (dom.engineSelect)  dom.engineSelect.value = window.LucyAI.getEngine() || 'auto';
       populateVoiceSelect();
       dom.autoSpeak.checked = autoSpeak;
       openModal('settingsModal');
@@ -137,8 +141,14 @@
     });
 
     dom.saveSettings.addEventListener('click', () => {
-      const key = (dom.geminiKey.value || '').trim();
-      window.LucyAI.setKey(key);
+      const geminiKey = (dom.geminiKey.value || '').trim();
+      const claudeKey = dom.claudeKey ? (dom.claudeKey.value || '').trim() : '';
+      const engine    = dom.engineSelect ? dom.engineSelect.value : 'auto';
+
+      window.LucyAI.setKey(geminiKey);
+      window.LucyAI.setClaudeKey(claudeKey);
+      window.LucyAI.setEngine(engine);
+
       const voiceName = dom.voiceSelect.value;
       if (voiceName) window.LucyVoice.setVoiceByName(voiceName);
       autoSpeak = dom.autoSpeak.checked;
@@ -146,8 +156,17 @@
       window.LucyVoice.setContinuous(dom.continuousListen.checked);
       try { localStorage.setItem('lucy.continuous', dom.continuousListen.checked ? '1' : '0'); } catch {}
       closeModal('settingsModal');
-      const label = key ? 'Gemini AI' : 'Local Knowledge';
-      addMessage('lucy', `تم حفظ الإعدادات ✓ — المحرك الحالي: **${label}**`);
+
+      const engineLabel = (() => {
+        if (engine === 'claude') return claudeKey ? 'Claude AI' : 'Local Knowledge (مفتاح Claude ناقص)';
+        if (engine === 'gemini') return geminiKey ? 'Gemini AI' : 'Local Knowledge (مفتاح Gemini ناقص)';
+        if (engine === 'local')  return 'Local Knowledge';
+        // auto
+        if (claudeKey) return 'Auto (Claude مفضَّل)';
+        if (geminiKey) return 'Auto (Gemini)';
+        return 'Local Knowledge';
+      })();
+      addMessage('lucy', `تم حفظ الإعدادات ✓ — المحرك الحالي: **${engineLabel}**`);
     });
   }
 
@@ -196,6 +215,8 @@
     dom.settingsBtn = $('#settingsBtn');
     dom.aboutBtn = $('#aboutBtn');
     dom.geminiKey = $('#geminiKey');
+    dom.claudeKey = $('#claudeKey');
+    dom.engineSelect = $('#engineSelect');
     dom.voiceSelect = $('#voiceSelect');
     dom.autoSpeak = $('#autoSpeak');
     dom.continuousListen = $('#continuousListen');
